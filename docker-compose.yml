@@ -2,6 +2,14 @@ version: '3'
 
 services:
 
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+
   backend:
     build:
       context: ./backend
@@ -15,9 +23,3 @@ services:
     ports:
       - "6379:6379"
     container_name: "redis"
-
-  smtp:
-    build:
-      context: ./smtp
-    ports:
-      - "587:587"

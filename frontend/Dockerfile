@@ -6,8 +6,6 @@ COPY package*.json ./
 
 RUN npm install
 
-ENV NODE_OPTIONS="--openssl-legacy-provider"
-
 COPY . .
 
 EXPOSE 3000

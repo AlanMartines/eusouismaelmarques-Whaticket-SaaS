@@ -8,8 +8,10 @@ RUN npm install
 
 RUN apt-get update && apt-get install -y sendmail
 
+RUN apt-get install -y redis-server
+
 COPY . .
 
 EXPOSE 9000
 
-CMD ["npm", "start"]
+CMD service redis-server start && npm start

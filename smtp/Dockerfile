@@ -24,7 +24,7 @@ RUN echo "inet_protocols = ipv4" >> /etc/postfix/main.cf
 
 
 # Expondo a porta SMTP
-EXPOSE 25
+EXPOSE 587
 
 # Comando para iniciar o Postfix
 CMD ["sh", "-c", "service postfix start && tail -f /dev/null"]

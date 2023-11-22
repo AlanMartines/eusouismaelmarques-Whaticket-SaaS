@@ -2,14 +2,6 @@ version: '3'
 
 services:
 
-  frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "3000:3000"
-    stdin_open: true
-    tty: true
-
   backend:
     build:
       context: ./backend
@@ -28,4 +20,4 @@ services:
     build:
       context: ./smtp
     ports:
-      - "25:25"
+      - "587:587"

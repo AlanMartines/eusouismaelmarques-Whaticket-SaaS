@@ -6,11 +6,15 @@ import TemplateEmail from "../../models/TemplateEmail";
 import ContactList from "../../models/ContactList";
 import ContactListItem from "../../models/ContactListItem";
 import User from "../../models/User";
+import crypto from 'crypto';
 
 interface EmailVerificationResult {
   success: boolean;
   message?: string;
 }
+
+
+
 
 const SendEmail = async (id, companyId): Promise<EmailVerificationResult> => {
   const record = await Email.findByPk(id, {
@@ -61,19 +65,16 @@ const SendEmail = async (id, companyId): Promise<EmailVerificationResult> => {
   console.log(dkimOptions);
 
   let transporter = nodemailer.createTransport({
-    host: "smtp",
-    port: 25,
-    secure: false,
-    tls: {
-        rejectUnauthorized: false, 
-    },
-    dkim: {
-        domainName: dkimOptions.domainName,
-        keySelector: dkimOptions.keySelector,
-        privateKey: dkimOptions.privateKey
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'gustavo.ribeiro01001@gmail.com',
+      pass: 'nszf pxvp yecr dcmc',
     },
   });
   
+
   const contactsEmails = record.contactList.contacts.map(contact => contact.email);
 
   if (contactsEmails.length === 0) {
@@ -86,11 +87,6 @@ const SendEmail = async (id, companyId): Promise<EmailVerificationResult> => {
     subject: record.title,
     html: record.template.html,
   };
-
-  console.log(record.user.email);
-  console.log(contactsEmails.join(', '));
-  console.log(record.title);
-  console.log(record.template.html);
 
   try {
     console.log("Enviando!");

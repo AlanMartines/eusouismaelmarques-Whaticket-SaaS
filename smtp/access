@@ -1,0 +1,2 @@
+# /etc/mail/access
+Connect:0.0.0.0/0        RELAY
